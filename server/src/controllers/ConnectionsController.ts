@@ -7,7 +7,7 @@ export default class Connection {
     const totalConnections = await db('connections').count('* as total');
 
     const { total } = totalConnections[0]
-
+    console.log(total)
     return response.json({total})
   }
   async create(request: Request, response: Response) {

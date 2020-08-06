@@ -4,7 +4,7 @@ import db from "../database/connection";
 import convertHourToMinutes from "../utils/convertHourToMinutes";
 
 interface ScheduleItem {
-  week_day: number;
+  week_day: Number;
   from: string;
   to: string;
 }

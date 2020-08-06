@@ -1,34 +1,56 @@
 import React from 'react';
 import whatsappIcon from '../../assets/images/icons/whatsapp.svg'
 import './styles.css'
-function TeacherItem(){
+import api from '../../services/api';
+
+export interface Teacher{
+  avatar: string;
+  bio: string;
+  cost: number;
+  id: number;
+  name: string;
+  subject: string;
+  whatsapp: string;
+
+}
+
+interface TeacherItemProps {
+  teacher: Teacher
+}
+
+const TeacherItem: React.FC<TeacherItemProps> = ({ teacher }) => {
+  function createNewConnection(){
+    api.post('connections', {
+      user_id: teacher.id
+    })
+  }
   return (
     <article className="teacher-item">
-    <header>
-      <img src="https://images.unsplash.com/photo-1551584108-71b90930cfa5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt=""/>
-      <div>
-        <strong>
-          Diego Fernandes 
+      <header>
+        <img src={teacher.avatar} alt={teacher.name} />
+        <div>
+          <strong>
+            {teacher.name}
         </strong>
-        <span>
-          Química
+          <span>
+            {teacher.subject}
         </span>
-      </div>
-    </header>
-    <p>
-      Entusiasta das melhores tecnologias de química avançada.
-      <br/>
-      Apaixonado por explodir coisas em laboratório e por mudar a vida 
-      das pessoas através de experiências.
-    </p>
-    <footer>
-      <p>
-        Preço/hora
-        <strong>R$ 80,00</strong>
-      </p>
-      <button type="button"><img src={whatsappIcon} alt="whatsapp"/>Entrar em contato</button>
-    </footer>
-  </article>
+        </div>
+      </header>
+      <p> {teacher.bio}</p>
+      <footer>
+        <p>
+          Preço/hora
+        <strong>R$ {teacher.cost}</strong>
+        </p> 
+        <a 
+          target="_blank"
+          href={`https://wa.me/${teacher.whatsapp}`} 
+          onClick={createNewConnection}>
+          <img src={whatsappIcon} alt="whatsapp" />Entrar em contato
+        </a>
+      </footer>
+    </article>
   )
 }
 
