@@ -10,7 +10,7 @@ import api from '../../services/api';
 
 function Landing() {
   const [totalConnections, setTotalConnections] = React.useState(0);
-
+  console.log('')
   React.useEffect(()=>{
     api.get('connections').then(response =>{
       const {total} = response.data;
